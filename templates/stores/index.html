@@ -4,24 +4,25 @@
 {% block content %}
 
 <!-- swiper banner -->
-<div class="swiper banner">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-          <img src="{% static 'img/slider-1 (1).webp' %}" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/slider-2.webp' %}" alt="">
 
+    <div class="swiper banner">
+      <div class="swiper-wrapper">
+        {% if sliders %}
+          {% for item in sliders %}
+          <div class="swiper-slide">
+            <img src="{{ item.image.url }}" alt="">  
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="lead m-5 p-5 bg-danger">No Slider Available yet</p>
+        {% endif %}
+        
       </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/slider-3.webp' %}" alt="">
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+  </div>
 
-      </div>
-
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
+  
 
 <!-- category -->
    <!-- jumbo -->

@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 from .paystack import PayStack
 # Create your models here.
+class Curousel(models.Model):
+    image = models.ImageField(upload_to="slider")
+    created_at = models.DateTimeField(auto_now_add=True, null=True,blank=True)
+    def __str__(self):
+        return self.created_at
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -102,11 +107,12 @@ class Order(models.Model):
     
     def amount_value(self) -> int:
         return self.total * 100
+
     def verify_payment(self):
         paystack = PayStack()
         status, result = paystack.verify_payment(self.ref, self.total)
         if status:
-            if result['total']/100 == self.total:
+            if result['total'] / 100 == self.total:
                 self.payment_completed=True
             self.save()
         if self.payment_completed:

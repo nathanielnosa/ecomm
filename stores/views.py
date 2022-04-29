@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     allproduct = Product.objects.all().order_by('-created_at')
     allcategory = Category.objects.all()
+    sliders = Curousel.objects.all()
     # paginator
     paginator = Paginator(allproduct,4)
     page_number = request.GET.get('page')
@@ -35,7 +36,8 @@ def index(request):
     context = {
         'show':allproduct,
         'category':allcategory,
-        'paginators':product_list
+        'paginators':product_list,
+        'sliders':sliders
     }
     return render(request, 'stores/index.html',context)
 
@@ -352,9 +354,8 @@ def paymentPage(request,id):
 def verify_payment(request: HttpRequest, ref:str ) -> HttpResponse:
     payment = get_object_or_404(Order, ref = ref)
     verified = payment.verify_payment()
-
     if verified:
         messages.success(request, 'Verification Successfull')
     else:
         messages.error(request, 'Verification Failed')
-    return redirect('')
+    return redirect('index')
