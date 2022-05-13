@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{{forloop.counter}}</td>
                                 <td>#ECOMORD_{{order.id}}</td>
-                                <td>&#8358; {{order.total | intcomma }}</td>
+                                <td>&#8358; {{order.amount | intcomma }}</td>
                                 <td>{{order.created_at| timesince}} ago</td>
                                 <td>{{order.order_status}}</td>
                                 <td><a href="{% url 'order-detail' order.id %}" class="btn btn-info btn-sm">More Details</a></td>

@@ -86,7 +86,7 @@ class Order(models.Model):
     email = models.EmailField(null=True,blank=True)
     discount = models.PositiveIntegerField()
     subtotal = models.PositiveIntegerField()
-    total = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField(null=True,blank=True)
     order_status = models.CharField(max_length=200, choices=OREDER_STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
 	
@@ -106,13 +106,13 @@ class Order(models.Model):
         super().save(*args, **kwargs)
     
     def amount_value(self) -> int:
-        return self.total * 100
+        return self.amount * 100
 
     def verify_payment(self):
         paystack = PayStack()
-        status, result = paystack.verify_payment(self.ref, self.total)
+        status, result = paystack.verify_payment(self.ref, self.amount)
         if status:
-            if result['total'] / 100 == self.total:
+            if result['amount'] / 100 == self.amount:
                 self.payment_completed=True
             self.save()
         if self.payment_completed:

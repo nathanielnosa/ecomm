@@ -204,7 +204,7 @@ def checkout(request):
             form.cart = cart_obj
             form.discount = 0
             form.subtotal = cart_obj.total
-            form.total = cart_obj.total
+            form.amount = cart_obj.total
             form.order_status = 'Order Received'
             pay_mth = form.payment_method
             del request.session['cart_id']
@@ -358,4 +358,4 @@ def verify_payment(request: HttpRequest, ref:str ) -> HttpResponse:
         messages.success(request, 'Verification Successfull')
     else:
         messages.error(request, 'Verification Failed')
-    return redirect('index')
+    return redirect('profile')

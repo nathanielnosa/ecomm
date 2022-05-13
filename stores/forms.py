@@ -5,7 +5,7 @@ class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Order
         # fields = ['ordered_by','shipping_address','mobile','email']
-        exclude = ['order_status','subtotal','discount','total','cart','payment_completed','ref']
+        exclude = ['order_status','subtotal','discount','amount','cart','payment_completed','ref']
         widgets={
             'ordered_by':forms.TextInput(attrs={'class':'form-control'}),
             'shipping_address':forms.TextInput(attrs={'class':'form-control'}),
