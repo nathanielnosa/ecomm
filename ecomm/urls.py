@@ -10,15 +10,11 @@ urlpatterns = [
     path('',include('stores.urls')),
 
 
-    #  password reset
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='password/reset_password.html'), name="reset_password"),
-
-    path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(template_name='password/reset_password_sent.html'), name="password_reset_done"),
-
-    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='password/reset.html'), name="password_reset_confirm"),
-
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password/reset_password_complete.html'), name="password_reset_complete"),
-
+     # password reset
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='password/reset_password.html'), name ='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_sent.html'), name ='password_reset_done'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_form.html'), name ='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password/password_reset_done.html'), name ='password_reset_complete'),
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
